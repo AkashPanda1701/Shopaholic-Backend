@@ -47,8 +47,8 @@ try {
     
     if (cartItem && cartItem.userId.toString() === userId) {
         
-        const { productId, quantity } = req.body;
-        const cart = await Cart.findByIdAndUpdate(id, { userId,productId, quantity }, { new: true }).populate('productId').select('-userId');
+        const {  quantity } = req.body;
+        const cart = await Cart.findByIdAndUpdate(id, { userId,productId:cartItem.productId, quantity }, { new: true }).populate('productId').select('-userId');
         return res.status(200).send({ message: 'Cart updated successfully', updatedItem: cart });
 
     }
