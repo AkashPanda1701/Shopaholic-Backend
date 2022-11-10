@@ -18,8 +18,8 @@ app.post('/register', async (req, res) => {
         const user = await User.create({ name,email, password ,role});
         console.log('user: ', user);
 
-        return res.status(201).send({ user });
-    } catch (error) {
+        return res.status(201).send({ message : 'User Registered Successfully' });
+        } catch (error) {
         return res.status(404).send({ error: 'Something went wrong' });
     }
 });
