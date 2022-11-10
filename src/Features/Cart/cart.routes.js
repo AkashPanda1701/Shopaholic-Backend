@@ -61,7 +61,7 @@ try {
 });
 
 app.delete('/:id', async (req, res) => {
-    const userId = req.headers.userId
+    const userId = req.userId
 try {
     const { id } = req.params;
     const cartItem = await Cart.findById(id);
