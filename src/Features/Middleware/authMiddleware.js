@@ -1,16 +1,29 @@
 const User = require('../User/user.model');
+const jwt = require('jsonwebtoken');
 
  const authMiddleware = async (req, res, next) => {
     const token = req.headers.token;
+
     if (!token) {
-        return res.status(401).send({ message: 'User not Authenticated' });
+        return res.status(401).send({ message: 'token not found' });
     }
+
+    
+
+
+
+    
   
     try {
-        const userId  =  token;
-        const user = await User.findById(userId);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (!decoded) {
+            return res.status(401).send({ message: 'User not Authenticated' });
+        }
+        const userId  =  decoded._id;
+        const user = await User.findById(decoded);
+
         if (!user) {
-            return res.status(401).send({ message: 'User not found' });
+            return res.status(401).send({ message: 'User not Authenticated' });
         }
         req.userId = userId;
 

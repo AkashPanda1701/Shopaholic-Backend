@@ -1,6 +1,7 @@
 const User = require('./user.model');
 
 const express = require('express');
+const  jwt = require('jsonwebtoken');
 
 const app = express.Router();
 
@@ -35,7 +36,9 @@ app.post('/login', async (req, res) => {
         if (user.password !== password) {
             return res.status(400).send({ message: 'Password is incorrect' });
         }
-        return res.status(200).send({ message: 'Login successful' , token: user._id});
+
+        const token = jwt.sign({ _id: user._id,name:user.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        return res.status(200).send({ message: 'Login successful' , token});
     } catch (error) {
         return res.status(404).send({ error: 'Something went wrong' });
     }
