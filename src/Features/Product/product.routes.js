@@ -9,7 +9,7 @@ const authMiddleware = require('../Middleware/authMiddleware');
 app.get('/', async (req, res) => {
 
     try {
-        const { category,price,stars, sort,orderBy } = req.query;
+        const { category,price,stars, sort,orderBy ,limit,page } = req.query;
      const query = {};
         if (category) {
             query.category = category;
@@ -21,10 +21,16 @@ app.get('/', async (req, res) => {
         if (stars) {
             query.stars = +stars;
         }
+        if(!limit){
+            limit = 20;
+        }
+        if(!page){
+            page = 1;
+        }
         
 
 
-        const products = await Product.find(query).sort({ [sort]: orderBy === 'asc' ? 1 :  orderBy === 'desc' ? -1 : 1 });
+        const products = await Product.find(query).sort({ [sort]: orderBy === 'asc' ? 1 :  orderBy === 'desc' ? -1 : 1 }).limit(+limit).skip((+page-1)*limit);
     
     return res.status(200).send({ products });
     } catch (error) {
