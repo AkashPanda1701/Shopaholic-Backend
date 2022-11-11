@@ -27,9 +27,11 @@ app.post('/register', async (req, res) => {
 
 
 app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    console.log('req.body: ', req.body);
     try {
-        const { email, password } = req.body;
         const user = await User.findOne({ email });
+        console.log('user: ', user);
         if (!user) {
             return res.status(400).send({ message: 'User does not exist' });
         }
