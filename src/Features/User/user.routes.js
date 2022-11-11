@@ -40,9 +40,9 @@ app.post('/login', async (req, res) => {
         }
 
         const token = jwt.sign({ _id: user._id,name:user.name }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        return res.status(200).send({ message: 'Login successful' , token});
+        return res.status(200).send({ message: 'Login successful' , token,user : user.name});
     } catch (error) {
-        return res.status(404).send({ error: 'Something went wrong' });
+        return res.status(404).send({ message : 'Something went wrong' });
     }
 });
 
