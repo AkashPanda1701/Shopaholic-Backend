@@ -14,7 +14,7 @@ const carts = await Cart.find({userId}).populate('productId').select('-userId');
 return res.status(200).send({ carts });
     
 } catch (error) {
-    return res.status(500).send({ error: error.message });
+    return res.status(404).send({ message: error.message });
 }
     
 
@@ -27,7 +27,7 @@ try {
 
     const isProductExist = await Cart.findOne({ productId, userId });
     if (isProductExist) {
-        return res.status(400).send({ message: 'Product already exists in cart' });
+        return res.status(404).send({ message: 'Product already exists in cart' });
     }
    
     
@@ -35,7 +35,7 @@ try {
     const newCartItem = await Cart.findById(cart._id).populate('productId').select('-userId');
     return res.status(201).send({ message:`Product Added Successfully in cart`,newCartItem });
 } catch (error) {
-    return res.status(404).send({ error: 'Something went wrong' });
+    return res.status(404).send({ message: 'Something went wrong' });
 }
 });
 
@@ -56,7 +56,7 @@ try {
         return res.status(404).send({ message: 'Item does not exist in cart' });
     }
 } catch (error) {
-    return res.status(404).send({ error: 'Something went wrong' });
+    return res.status(404).send({ message: 'Something went wrong' });
 }
 });
 
@@ -75,7 +75,7 @@ try {
         return res.status(404).send({ message: 'Item does not exist in cart' });
     }
 } catch (error) {
-    return res.status(404).send({ error: 'Something went wrong' });
+    return res.status(404).send({ message: 'Something went wrong' });
 }
 });
     
