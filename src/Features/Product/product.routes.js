@@ -9,7 +9,7 @@ const authMiddleware = require('../Middleware/authMiddleware');
 app.get('/', async (req, res) => {
 
     try {
-        const { category,price,stars, sort,orderBy ,limit,page } = req.query;
+        let { category,price,stars, sort,orderBy ,limit,page } = req.query;
      const query = {};
         if (category) {
             query.category = category;
