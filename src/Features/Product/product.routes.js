@@ -9,18 +9,18 @@ const authMiddleware = require('../Middleware/authMiddleware');
 app.get('/', async (req, res) => {
 
     try {
-        let { category,price,stars, sort,orderBy ,limit,page } = req.query;
+        let { category,price,numReviews, sort,orderBy ,limit,page } = req.query;
      const query = {};
         if (category) {
             query.category = category;
         }
        
         if (price) {
-            
             query.price = { $gte: price[0], $lte: price[1] };
+            
         }
-        if (stars) {
-            query.stars = +stars;
+        if (numReviews) {
+            query.stars = +numReviews;
         }
         if(!limit){
             limit = 20;
