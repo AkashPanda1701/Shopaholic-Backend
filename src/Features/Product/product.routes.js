@@ -16,7 +16,8 @@ app.get('/', async (req, res) => {
         }
        
         if (price) {
-            query.price = +price;
+            
+            query.price = { $gte: price[0], $lte: price[1] };
         }
         if (stars) {
             query.stars = +stars;
