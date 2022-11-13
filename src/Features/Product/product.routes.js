@@ -32,7 +32,7 @@ app.get('/', async (req, res) => {
         
 
 
-        const products = await Product.find(query).sort({ [sort]: orderBy === 'asc' ? 1 :  orderBy === 'desc' ? -1 : 1 }).limit(+limit).skip((+page-1)*limit);
+        const products = await Product.find(query).sort({ [sort]: orderBy === 'asc' ? 1 :  orderBy === 'desc' ? -1 : 0 }).limit(+limit).skip((+page-1)*limit);
     
     return res.status(200).send({ products });
     } catch (error) {
