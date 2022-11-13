@@ -16,7 +16,8 @@ app.get('/', async (req, res) => {
         }
        
         if (price) {
-            query.price = { $gte: price[0], $lte: price[1] };
+            let [min, max] = price.split(',');
+            query.price = { $gte: min, $lte: max };
             
         }
         if (numReviews) {
